@@ -1,0 +1,35 @@
+:host { display: block; }
+
+/*esto de host aplica directo a la etiqueta del componente, app-landing-header en este caso, xq supuestamente aunque angular renderiza SU CONTENIDO esta no deja de ser una etiqueta y por lo tanto EXISTE en el DOM, y , por defecto, no tiene estilo, si no le aclaramos nada el navegador la trata como inline y puede provocar que los componentes no se apilen bien o q los margenes funcionen mas*/
+
+header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 1.2rem var(--gutter);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.5px;
+}
+
+nav { display: flex; gap: 2rem; }
+
+nav a {
+  color: #252525;
+  text-decoration: none;
+  transition: .3s;
+  font-size: .95rem;
+}
+nav a:hover { color: var(--color-primary); }
+
+@media (max-width: 768px) { nav { display: none; } }

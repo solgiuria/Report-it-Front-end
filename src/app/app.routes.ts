@@ -27,15 +27,12 @@ export const routes: Routes = [
   {path: '', component: LandingPage},
   {path: 'auth', component: AuthPage},
 
-  //REPORTS (USER + ADMIN)
-  {path: 'reports', component: ReportsFeedPage, canActivate: [authGuard]},
-  {path: 'reports/:id', component: ReportDetailPage, canActivate: [authGuard]},
+  
+  {path: 'reports', component: ReportsFeedPage, canActivate: [authGuard]},                   //REPORTS (USER + ADMIN)
+  {path: 'reports/new', component: ReportFormPage, canActivate: [authGuard, userOnlyGuard]},  //USER: crear
+  {path: 'reports/:id/edit', component: ReportFormPage, canActivate: [authGuard, ownerOrAdminGuard]}, //USER DUEÑA o ADMIN
+  {path: 'reports/:id', component: ReportDetailPage, canActivate: [authGuard]},                //REPORTS (USER + ADMIN)
 
-  //USER: crear
-  {path: 'reports/new', component: ReportFormPage, canActivate: [authGuard, userOnlyGuard]},
-
-  //USER DUEÑA o ADMIN
-  {path: 'reports/:id/edit', component: ReportFormPage, canActivate: [authGuard, ownerOrAdminGuard]},
 
   //PROFILE (USER + ADMIN)
   {path: 'profile', component: ProfilePage, canActivate: [authGuard]},

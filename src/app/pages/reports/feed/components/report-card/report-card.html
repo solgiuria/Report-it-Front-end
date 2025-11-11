@@ -1,0 +1,54 @@
+<article class="card" aria-label="Reporte ciudadano">
+  <!-- Imagen / placeholder -->
+  <div class="thumb" aria-hidden="true"></div>
+
+  <!-- Encabezado: título + subcategoría a la izquierda, badge a la derecha -->
+  <div class="card-header">
+    <div class="title-group">
+      <h3 class="category">
+        {{ reporte()?.subtipo?.tipo_reporte?.nombre }}
+      </h3>
+      <p class="subcategory">
+        {{ reporte()?.subtipo?.nombre }}
+      </p>
+    </div>
+
+    <span
+      [class]="
+        'badge ' + (
+          reporte()?.estado === 'PENDIENTE'   ? 'badge--pend' :
+          reporte()?.estado === 'EN_PROCESO' ? 'badge--proc' :
+                                               'badge--done'
+        )
+      "
+    >
+      {{ (reporte()?.estado || '').replace('_', ' ') }}
+    </span>
+  </div>
+
+  <!-- Descripción -->
+  <p class="desc">{{ reporte()?.descripcion }}</p>
+
+  <!-- Footer -->
+  <div class="card-footer">
+    <span>📍 {{ reporte()?.ubicacion }}</span>
+    <span>{{ reporte()?.fecha_hora | date:'shortDate' }}</span>
+  </div>
+</article>
+
+
+ 
+
+
+
+<!--
+
+{{ (reporte()?.estado || '').replace('_', ' ') }} :
+recuperamos el estado, si no existe deja '', y, sobre ese texto, q puede ser el estado o string vacio (aca no haria efecto) reemplaza el guion bajo que viene del back (ej: EN_PROCESO) por un espacio vacio q separe las palabras: ''
+
+| date → le dice a Angular: “pásalo por el pipe de fecha”.
+
+'shortDate' → le pide formato corto (10/11/25).
+'short' -> incluye hora tmb
+
+-->

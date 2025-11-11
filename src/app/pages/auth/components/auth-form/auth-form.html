@@ -1,1 +1,107 @@
-<p>auth-form works!</p>
+    <form [class]="mode() === 'login' ? 'login-form' : 'register-form'" [formGroup]="form" (ngSubmit)="handleSubmit()">
+        @if (mode() === 'register') {
+            <div formGroupName="register">
+
+                <div class="form-field">
+                    <label class="form-label" for="nombre">Nombre </label>
+                    <input autocomplete="off" class="form-control" id="nombre" formControlName="nombre" placeholder="Tu nombre"/>
+                    
+                    @if(nombre.hasError('required') && (nombre.touched || nombre.dirty) ){
+                        <span class="error-message">Campo obligatorio</span>
+                    }
+                    @if(nombre.hasError('minlength') || nombre.hasError('maxlength')){
+                        <span class="error-message">El nombre debe tener entre 2 y 20 caracteres</span>
+                    }                    
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label" for="apellido">Apellido </label>
+                    <input autocomplete="off" class="form-control" id="apellido"  formControlName="apellido" placeholder="Tu apellido"/>  
+                    
+                    @if(apellido.hasError('required') && (apellido.touched || apellido.dirty) ){
+                        <span class="error-message">Campo obligatorio</span>
+                    }
+                    @if(apellido.hasError('minlength') || apellido.hasError('maxlength')){
+                        <span class="error-message">El apellido debe tener entre 2 y 20 caracteres</span>
+                    }       
+
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label" for="edad">Edad</label>
+                    <input class="form-control" id="edad" type="number" formControlName="edad" placeholder="Tu edad" autocomplete="off"/>
+                    
+                    @if(edad.hasError('required') && (edad.touched || edad.dirty) ){
+                        <span class="error-message">Campo obligatorio</span>
+                    }
+                    @if(edad.hasError('min')){
+                        <span class="error-message">Edad minima 18 anios</span>
+                    }                           
+
+                </div>
+
+
+                <div class="form-field">
+                    <label class="form-label" for="dni">DNI</label>
+                    <input class="form-control" id="dni" type="number" formControlName="dni" placeholder="1234567" autocomplete="off"/>                    
+                
+                    @if(dni.hasError('required') && (dni.touched || dni.dirty) ){
+                        <span class="error-message">Campo obligatorio</span>
+                    }
+                    @if(dni.hasError('min')){
+                        <span class="error-message">Numero de DNI invalido</span>
+                    }   
+                
+                </div>
+
+
+                <div class="form-field both-columns">
+                    <label class="form-label" for="email">Email</label>
+                    <input autocomplete="off" class="form-control" id="email" type="email" formControlName="email" placeholder="tu@email.com"/>                    
+                
+                    @if(email.hasError('required') && (email.touched || email.dirty) ){
+                        <span class="error-message">Campo obligatorio</span>
+                    }
+                    @if(email.hasError('email')){
+                        <span class="error-message">Formato invalido</span>
+                    }   
+                
+                </div>
+
+
+            </div>
+        }
+
+        <div class="form-field">
+            <label class="form-label" for="username">Usuario</label>
+            <input class="form-control" type="text" formControlName="username" id="username" placeholder="Elegi un usuario" autocomplete="off"/>
+            
+            @if(username.hasError('required') && (username.touched || username.dirty) ){
+                <span class="error-message">Campo obligatorio</span>
+            }
+            @if(username.hasError('minlength') || username.hasError('maxlength')){
+                <span class="error-message">El username debe tener entre 3 y 20 caracteres</span>
+            }                     
+            
+        </div>
+
+
+        <div class="form-field">
+            <label class="form-label" for="password">Contraseña</label>
+            <input class="form-control" type="password" formControlName="password" id="password" placeholder="Crea una Contraseña" autocomplete="off"/>
+        
+            @if(password.hasError('required') && (password.touched || password.dirty) ){
+                <span class="error-message">Campo obligatorio</span>
+            }
+            @if(password.hasError('minlength') || password.hasError('maxlength')){
+                <span class="error-message">El password debe tener entre 3 y 20 caracteres</span>
+            }  
+        
+        </div>
+
+        
+         <button class="btn-primary" type="submit" [disabled]="form.invalid">{{ mode() === 'login' ? 'Entrar' : 'Crear cuenta' }}</button>
+      
+    
+    </form>
+

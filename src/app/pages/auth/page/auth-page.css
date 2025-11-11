@@ -1,0 +1,59 @@
+:host { display:block; }
+
+.auth-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-soft);
+  padding: 3rem var(--gutter);     /*si bien al medir 100vh y estar centrado en el medio ya no toca los bordes, si empezas a achicar el navegador/pantalla apareceria este problema, entonces le damos un padding para q incluso cuando la pantalla se muy chica no pase!*/
+  animation: fadeIn 0.5s ease-out;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 720px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 2.5rem 3rem;    /*recordar q x box sixing border box esto es parte del calculo del tamanio de la tarjeta q en este caso es maximo 520, si yo le pongo un padding muy alto significa q lo q queda de esos 520 es cada vez mas chico y por ende el contenido se ve mas raro, colapsado, etc. la solucion real en ese caso seria agrandar un poco el tamanio  de la caja padre*/
+  box-shadow: 0 12px 40px rgba(0,0,0,.08);
+
+}
+
+.auth-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-text-strong);
+  margin-bottom: 1.75rem;
+  letter-spacing: .2px;
+}
+
+.auth-switch {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: .95rem;
+  color: var(--color-muted);
+}
+.auth-switch a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+.auth-switch a:hover { 
+  text-decoration: underline; 
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

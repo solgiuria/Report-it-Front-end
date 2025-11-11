@@ -1,0 +1,35 @@
+:host { display: block; }
+
+.features { padding: 5rem var(--gutter); background: var(--color-bg-soft); }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 2px solid var(--color-border);
+}
+
+.feature-icon {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: .6rem;
+  color: var(--color-text-strong);
+  font-weight: 500;
+}
+
+.feature-card p { color: var(--color-muted); line-height: 1.6; font-size: .95rem; }

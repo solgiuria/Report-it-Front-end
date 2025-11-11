@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HowItWoks } from './how-it-woks';
+import { MapSection } from './map-section';
 
-describe('HowItWoks', () => {
-  let component: HowItWoks;
-  let fixture: ComponentFixture<HowItWoks>;
+describe('MapSection', () => {
+  let component: MapSection;
+  let fixture: ComponentFixture<MapSection>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HowItWoks]
+      imports: [MapSection]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HowItWoks);
+    fixture = TestBed.createComponent(MapSection);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

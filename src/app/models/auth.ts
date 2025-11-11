@@ -12,5 +12,5 @@ export interface RegisterRequest {
   email: string;
   dni: number;
   username: string;
-  password: string;
+  password:string;
 }

@@ -1,8 +1,8 @@
 import { SubtipoReporte } from "./categories";
 import { User } from "./user";
 
-export type ReportStatus = 'PENDIENTE' | 'EN_PROCESO' | 'CERRADO';
-
+export type ReportStatus = 'PENDIENTE' | 'EN_PROCESO' | 'FINALIZADO';
+export type statusFilter = 'TODOS' | ReportStatus;
 export interface ReportForm {
   idsubtipo_Reporte: number;
   descripcion: string;
@@ -10,8 +10,8 @@ export interface ReportForm {
   fechaHora: string;
 }
 
-
-export interface Report {
+//no lo puedo llamar Report porq ya existe un tipo propio de typescript q se llama asi y hacia q se rompa todo ya q lo interpretaba como eso
+export interface Reporte {
   id: number;
   descripcion: string;
   ubicacion: string;
@@ -20,3 +20,4 @@ export interface Report {
   subtipo: SubtipoReporte;
   usuario: User;
 }
+

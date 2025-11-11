@@ -1,1 +1,129 @@
-<p>reports-feed-page works!</p>
+<section class="feed container">
+  <h1 class="section-title">Reportes de la Ciudad</h1>
+
+  <!-- BREADCRUMB (solo se muestra si hay categoría seleccionada) -->
+  @if (selectedCategory() !== 'TODAS') {
+    <div class="breadcrumb">
+      <span>Todas</span>
+      <span class="separator">›</span>
+      <span class="active">{{ selectedCategory() }}</span>
+      @if (selectedSubcategory() !== 'TODAS') {
+        <span class="separator">›</span>
+        <span class="active">{{ selectedSubcategory() }}</span>
+      }
+      <button class="clear-btn" (click)="clearCategoryFilters()">✕</button>
+    </div>
+  }
+
+  <!-- FILTROS DE CATEGORÍAS -->
+  <div class="filter-section">
+    <h3>Categorías:</h3>
+    <div class="filter-buttons">
+
+      <button class="filter-btn" [class.active]="selectedCategory() === 'TODAS'" (click)="setCategory('TODAS')">
+        Todas
+      </button>
+
+      @for (cat of categories(); track cat) {
+        <button class="filter-btn" [class.active]="selectedCategory() === cat" (click)="setCategory(cat)">
+          {{ cat }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- FILTROS DE SUBCATEGORÍAS (solo si hay categoría seleccionada) -->
+  @if (selectedCategory() !== 'TODAS' && subcategories().length > 0) {
+    <div class="filter-section">
+      <h3>Subcategorías:</h3>
+      <div class="filter-buttons">
+        <button 
+          class="filter-btn" 
+          [class.active]="selectedSubcategory() === 'TODAS'"
+          (click)="setSubcategory('TODAS')">
+          Todas
+        </button>
+        @for (sub of subcategories(); track sub) {
+          <button 
+            class="filter-btn" 
+            [class.active]="selectedSubcategory() === sub"
+            (click)="setSubcategory(sub)">
+            {{ sub }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- FILTROS DE ESTADO -->
+  <div class="filter-section">
+    <h3>Estado:</h3>
+    <div class="filter-buttons">
+      <button 
+        class="filter-btn"  
+        [class.active]="selectedStatus() === 'TODOS'"
+        (click)="setStatus('TODOS')">
+        Todos
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="selectedStatus() === 'PENDIENTE'"
+        (click)="setStatus('PENDIENTE')">
+        Pendiente
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="selectedStatus() === 'EN_PROCESO'"
+        (click)="setStatus('EN_PROCESO')">
+        En proceso
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="selectedStatus() === 'FINALIZADO'"
+        (click)="setStatus('FINALIZADO')">
+        Finalizado
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTADOR DE RESULTADOS -->
+  <p class="results-count">
+    Mostrando {{ filteredReports().length }} reporte(s)
+  </p>
+
+  <!-- TARJETAS DE REPORTES -->
+  <div class="cards">
+    @for (reporte of filteredReports(); track reporte.id) {
+      <app-report-card [reporte]="reporte"></app-report-card>
+    } @empty {
+      <p class="no-results">No hay reportes que coincidan con los filtros seleccionados</p>
+    }
+  </div>
+</section>
+
+
+<!--
+[attr.aria-pressed]="selectedCategory() === cat" no cambia nada visual por sí solo.
+Lo único que hace es agregar al HTML algo como esto:
+
+<button aria-pressed="true">Baches</button>
+<button aria-pressed="false">Alumbrado</button>
+<button aria-pressed="false">Residuos</button>
+
+
+O sea: no “ejecuta” nada, no “detecta” clics, ni “activa” botones visualmente.
+Su función es describir semánticamente qué botón está activo para el navegador y los lectores de pantalla (accesibilidad).
+
+
+
+🎨 2. Qué te aporta a vos (y cómo puede tener un efecto visible)
+
+Lo bueno es que vos podés aprovecharlo para marcar visualmente el botón activo, sin necesitar otra variable más.
+Por ejemplo, si le agregás esto a tu CSS:
+
+button[aria-pressed="true"] {
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+}
+-->

@@ -1,1 +1,15 @@
-<p>auth-page works!</p>
+<main class="auth-page">
+  <div class="auth-card">
+    
+    <h2 class="auth-title">{{ mode() === 'login' ? 'Iniciar sesion' : 'Registrarse' }}</h2>
+    <app-auth-form [mode]="mode()" (submitted)="handleEvent($event)"></app-auth-form>
+  
+    <p class="auth-switch">
+      <a (click)="toggleMode()" style="cursor:pointer">
+        {{ mode() === 'login' ? '¿No tenés cuenta? Registrate' : '¿Ya tenés cuenta? Iniciá sesión' }}
+      </a>
+    </p>   
+
+  </div>
+</main>
+

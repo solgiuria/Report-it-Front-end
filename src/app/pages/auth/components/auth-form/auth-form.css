@@ -1,0 +1,93 @@
+:host { display:block; }
+
+/* =============== COMÚN A AMBOS =============== */
+.login-form, .register-form {
+  margin-top: 3rem;
+  display: grid;
+  gap: 2rem;
+}
+
+/* =============== REGISTER (2 columnas) =============== */
+.register-form { grid-template-columns: 1fr 1fr; }
+
+
+/* en modo registro le decimos que el div que contiene todo el group (debe existir si o si para poder decir que todo pertenece a [formGroupName="register"]) no debe ocupar espacio visible sino que debe dejar su contenido a la altura del resto, no lo renderiza aunque siga existiendo en el dom */
+.register-form [formGroupName="register"] { 
+  display: contents; 
+}
+
+
+/* =============== LOGIN (1 columna) =============== */
+.login-form { grid-template-columns: 1fr; }
+
+
+.form-field {
+  display: grid; 
+  gap: 4px;
+  position: relative;     /*el contenedor sigue ocupando su lugar normal pero con esto es un punto de referencia para cualquier elemento posicionado absolutamente (con absolut) dentro de el.*/
+}
+
+
+.error-message{   
+  position: absolute;   /*se posiciona absolut dentro del padre form field y por ende sus coordenadas top left bottom y right se calculan respecto al mismo*/
+  bottom: -18px;
+  left: 0;
+  font-size: 0.6rem;
+  color: red;
+}
+
+.form-label {
+  font-size: .95rem;
+  color: var(--color-text-strong);
+  font-weight: 500;
+}
+
+.form-control {
+  height: 48px;
+  width: 100%;
+  padding: 0 1rem;
+  font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  border: 1.5px solid var(--color-border);
+  border-radius: 12px;
+  background: #f6f8fb;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 3s, box-shadow .2s, background-color .2s;
+}
+
+.form-control::placeholder { 
+  color: #9aa4b2; 
+}
+
+.form-control:focus {
+  background: #fff;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.14);
+}
+
+.btn-primary {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+
+
+/* campos que ocupan ambas columnas solo en register */
+.register-form .both-columns { 
+  grid-column: 1 / -1; 
+}
+
+.register-form .btn-primary { 
+  grid-column: 1 / -1; 
+}
+
+.btn-primary:disabled {
+  background: var(--color-muted);
+  border: var(--color-muted);
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
+

@@ -1,0 +1,34 @@
+:host { display: block; }
+
+.stats {
+  padding: 5rem var(--gutter);
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: #fff;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.stat-item { position: relative; }
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 600;
+  color: #3b82f6;
+  margin-bottom: .5rem;
+  display: block;
+}
+
+.stat-label {
+  color: #cbd5e1;
+  font-size: .95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
