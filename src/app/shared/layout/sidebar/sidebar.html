@@ -1,0 +1,107 @@
+<aside 
+  class="sidebar"
+  [class.sidebar--open]="isOpen()"
+>
+  <nav class="sidebar-nav">
+    
+    <!-- TÍTULO (solo mobile) -->
+    <div class="sidebar-header">
+      <h2>Report it!</h2>
+      <button 
+        class="close-btn"
+        (click)="close()"
+        aria-label="Cerrar menú"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- NAVEGACIÓN PRINCIPAL -->
+    <div class="nav-section">
+      <a 
+        routerLink="/app/reports" 
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-item"
+        (click)="close()"
+      >
+        <span class="icon">🏠</span>
+        <span>Todos los Reportes</span>
+      </a>
+
+      @if (!isAdmin()) {
+        <a 
+          routerLink="/app/reports/my" 
+          routerLinkActive="active"
+          class="nav-item"
+          (click)="close()"
+        >
+          <span class="icon">📝</span>
+          <span>Mis Reportes</span>
+        </a>
+
+        <a 
+          routerLink="/app/reports/new" 
+          routerLinkActive="active"
+          class="nav-item nav-item--highlight"
+          (click)="close()"
+        >
+          <span class="icon">+</span>
+          <span>Nuevo Reporte</span>
+        </a>
+      }
+    </div>
+
+    <!-- SECCIÓN USUARIO -->
+    <div class="nav-section">
+      <a 
+        routerLink="/app/profile" 
+        routerLinkActive="active"
+        class="nav-item"
+        (click)="close()"
+      >
+        <span class="icon">👤</span>
+        <span>Mi Perfil</span>
+      </a>
+    </div>
+
+    <!-- SECCIÓN ADMIN (solo si es admin) -->
+    @if (isAdmin()) {
+      <div class="nav-section">
+        <p class="section-title">Administración</p>
+        
+        <a 
+          routerLink="/app/admin/categories" 
+          routerLinkActive="active"
+          class="nav-item"
+          (click)="close()"
+        >
+          <span class="icon">📂</span>
+          <span>Gestionar Categorías</span>
+        </a>
+
+        <a 
+          routerLink="/app/admin/users" 
+          routerLinkActive="active"
+          class="nav-item"
+          (click)="close()"
+        >
+          <span class="icon">👥</span>
+          <span>Gestionar Usuarios</span>
+        </a>
+      </div>
+    }
+
+    <!-- LOGOUT -->
+    <div class="nav-section nav-section--bottom">
+      <button 
+        class="nav-item nav-item--logout"
+        (click)="logout()"
+      >
+        <span class="icon">🚪</span>
+        <span>Cerrar Sesión</span>
+      </button>
+    </div>
+
+  </nav>
+</aside>

@@ -1,46 +1,3 @@
-/* Fuentes y reset */
-@import url('https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-}
-
-:root {
-  /* Colores base (tomados de tu CSS) */
-  --color-primary: #2563eb;
-  --color-text: #1a1a1a;
-  --color-text-strong: #1e293b;
-  --color-muted: #6a799ba8;
-  --color-border: #f1f5f9;
-  --color-bg: #ffffff;
-  --color-bg-soft: #f8f9fa;
-
-  /* Sombras y radios */
-  --shadow-1: 0 2px 8px rgba(0, 0, 0, .08);
-  --shadow-2: 0 12px 24px rgba(37, 99, 235, .10);
-  --radius-md: 12px;
-  --radius-lg: 16px;
-
-  /* Layout */
-  --max-w: 1200px;    /*ancho maximo xq en monitores muy grandes si no limitamos esto se veria todo muy grande y no seria legible*/
-  --gutter: 5%;
-}
-
-html, body { 
-    height: 100%; 
-}
-
-body {
-  font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: var(--color-bg);
-  color: var(--color-text);
-  overflow-x: hidden;
-  letter-spacing: .01em;
-}
-
-
 /* Utilidades globales */
 /* Fuentes y reset */
 @import url('https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
@@ -49,7 +6,7 @@ body {
     margin: 0; 
     padding: 0; 
     box-sizing: border-box; 
-}
+  }
 
 :root {
   /* Colores base (tomados de tu CSS) */
@@ -73,7 +30,7 @@ body {
 }
 
 html, body { 
-    height: 100%; 
+    min-height: 100%; 
 }
 
 body {
@@ -165,72 +122,51 @@ body {
 }
 
 
-/* Botones globales reutilizables (si los usás en varias secciones) */
-.btn-primary,
-.btn-secondary,
-.btn-white {
-  text-decoration: none;
-  transition: .3s;
+/*Badges: etiquetas de estado*/
+
+.badge{
+  border-radius: 999px;
   font-weight: 500;
-  font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-
+  border: 2px solid;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  white-space: nowrap;          /* “EN PROCESO” no parte en dos líneas aunque el contenedor sea chico */
 }
 
-
-/* primario (azul) */
-.btn-primary {
-  background: var(--color-primary);
-  color: #fff;
-  padding: 1rem 1.5rem;
-  font-weight: 500;
-  border-radius: 3rem;
-  border: 2px solid #252525;
-  box-shadow: var(--shadow-1);
-}
-.btn-primary:hover {
-  transform: translateY(-1px); 
+.badge--pend {
+  color: #b45309;
+  border-color: #facc15;
 }
 
-
-/* secundario (outline oscuro) */
-.btn-secondary {
-  background: #fff;
-  color: #252525;
-  padding: 1rem 1.5rem;
-  border-radius: 3rem;
-  border: 2px solid #252525;
-}
-.btn-secondary:hover {
-  color: var(--color-primary); 
-  border-color: var(--color-primary); 
+.badge--proc {
+  color: #1d4ed8;
+  border-color: #3b82f6;
 }
 
-/* botón blanco (CTA) */
-.btn-white {
-  background: #fff;
-  color: var(--color-primary);
-  border: 2px solid #252525;
-  padding: .8rem 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(32, 42, 182, 0.205);
-}
-.btn-white:hover {
-    transform: translateY(-2px); 
-    box-shadow: 0 6px 16px rgba(0,0,0,.15); 
+.badge--done {
+  color: #166534;
+  border-color: #22c55e;
 }
 
 
-/* Títulos reutilizados */
-.section-title {
-  text-align: center;
-  font-size: clamp(2rem, 3vw, 2.5rem);
-  font-weight: 600;
-  margin-bottom: .75rem;
-  color: var(--color-text-strong);
+/* Fade in suave cuando carga una página */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.section-subtitle {
-  text-align: center;
-  color: var(--color-muted);
-  margin-bottom: 3.5rem;
-  font-size: 1.1rem;
+
+/* Aplicar a todas las páginas principales */
+app-report-detail-page,
+app-report-form-page,
+app-reports-feed-page,
+app-my-reports-page {
+  animation: fadeIn 0.3s ease-out;
 }
+
+

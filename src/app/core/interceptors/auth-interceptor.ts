@@ -1,10 +1,8 @@
-// ✅ auth-interceptor.ts
-
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn } from '@angular/common/http';  //GRACIAS A ESTO ES QUE CADA VEZ Q ANGULAR HACE UN REQUEST CON HTTPCLIENT  ANTES DE QUE SALGA DEL NAVEGADOR PASA POR EL INTERCEPTOR
 import { inject } from '@angular/core';
-import { AuthService } from '../services/auth-service'; // 👈 ajustá el path según tu estructura
+import { AuthService } from '../services/auth-service';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
+export const authInterceptor: HttpInterceptorFn = (req, next) => { 
   
   //Inyectamos el AuthService para acceder al token y a sus métodos
   const auth = inject(AuthService);

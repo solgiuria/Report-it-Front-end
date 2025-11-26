@@ -1,0 +1,71 @@
+<div class="detail-page">
+  
+  @if (user()) {
+    <div class="container">
+      
+      <!-- BOTÓN VOLVER -->
+      <button class="back-btn" (click)="goBack()">
+        ← Volver a usuarios
+      </button>
+
+      <!-- CONTENIDO PRINCIPAL -->
+      <div class="detail-content">
+        
+        <!-- HEADER CON AVATAR -->
+        <div class="user-header">
+          <div class="user-avatar-large">
+            {{ (user()?.nombre || '').charAt(0).toUpperCase() }}{{ (user()?.apellido || '').charAt(0).toUpperCase() }}          </div>
+          <div class="user-header-info">
+            <h1 class="user-name">{{ user()?.nombre }} {{ user()?.apellido }}</h1>
+            <p class="user-username">@{{ user()?.username }}</p>
+          </div>
+        </div>
+
+        <!-- INFO DEL USUARIO -->
+        <div class="info-section">
+          
+          <div class="info-group">
+            <h3 class="info-title">Información de Contacto</h3>
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">Email:</span>
+                <span class="info-value">{{ user()?.email }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">DNI:</span>
+                <span class="info-value">{{ user()?.dni }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-group">
+            <h3 class="info-title">Información Personal</h3>
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">Edad:</span>
+                <span class="info-value">{{ user()?.edad }} años</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">ID de Usuario:</span>
+                <span class="info-value">#{{ user()?.id }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOTÓN ELIMINAR -->
+          <div class="action-section">
+            <button class="btn-delete" (click)="handleDelete()">
+              🗑️ Eliminar Usuario
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  } @else {
+    <div class="container loading-state">
+      <p>Cargando usuario...</p>
+    </div>
+  }
+</div>

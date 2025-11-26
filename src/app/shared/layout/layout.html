@@ -1,0 +1,23 @@
+<div class="layout">
+  <!-- HEADER -->
+  <app-header (menuToggle)="toggleSidebar()"/>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <div class="layout-body">
+    <!-- SIDEBAR -->
+    <app-sidebar 
+      [isOpen]="sidebarOpen()"
+      (closeSidebar)="closeSidebar()"
+    />
+
+    <!-- CONTENIDO (aquí se renderizan las páginas) -->
+    <main class="content">
+      <router-outlet /> <!--estos son los componentes page que renderiza cada ruta!-->
+    </main>
+  </div>
+
+  <!-- OVERLAY para cerrar sidebar en mobile -->
+  @if (sidebarOpen()) {
+    <div class="overlay" (click)="closeSidebar()" aria-hidden="true"></div>
+  }
+</div>

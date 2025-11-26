@@ -55,8 +55,22 @@ export class AuthService {
     const token = this.getToken();
     if (!token) return null;
     const payload = atob(token.split('.')[1]);   //decodificamos
-    return JSON.parse(payload);                  //convertirmos en objeto
+    const decoded = JSON.parse(payload);         //convertirmos en objeto
+    console.log('🔍 Token decodificado:', decoded); 
+    return decoded;                  
   }
+  
+  //Me sirve p verificar que un reporte es mio
+  getUsernameFromToken(): string | null {
+    const decoded = this.getDecodedToken();
+
+  //DEBUG 
+  console.log('Decoded en getUsernameFromToken:', decoded);
+  console.log('decoded?.sub:', decoded?.sub);
+
+    return decoded?.sub || null;
+  }
+
 
   //8 Verificar si es admin
   isAdmin(): boolean {

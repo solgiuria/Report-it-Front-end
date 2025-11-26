@@ -1,11 +1,11 @@
-export interface TipoReporte {
+export interface reportCategory {
   id: number;
   nombre: string;
 }
 
-export interface SubtipoReporte {
+export interface reportSubCategory {
   id: number;
   nombre: string;
-  tipo_reporte: TipoReporte;
+  tipo_reporte: reportCategory;
 }
 

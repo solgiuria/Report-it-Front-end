@@ -1,0 +1,109 @@
+<div class="management-page">
+  <div class="container">
+    
+    <h1 class="page-title">Gestión de Categorías y Subcategorías</h1>
+
+    <!-- SECCIÓN CATEGORÍAS -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Categorías</h2>
+        <button class="btn-add" (click)="toggleCategoryForm()">
+          {{ showCategoryForm() ? '✕ Cancelar' : '+ Nueva Categoría' }}
+        </button>
+      </div>
+
+      <!-- FORMULARIO CREAR CATEGORÍA -->
+      @if (showCategoryForm()) {
+        <div class="form-card">
+          <input 
+            type="text" 
+            class="form-input"
+            placeholder="Nombre de la categoría (ej: Medio Ambiente)"
+            [(ngModel)]="newCategoryName"
+            (keyup.enter)="handleCreateCategory()"
+          />
+          <button class="btn-create" (click)="handleCreateCategory()">
+            Crear Categoría
+          </button>
+        </div>
+      }
+      
+      <div class="items-list">
+        @for (category of categories(); track category.id) {
+          <div class="item-card">
+            <span class="item-name">{{ formatCategoryName(category.nombre) }}</span>
+            <button 
+              class="btn-delete-small" 
+              (click)="handleDeleteCategory(category.id, category.nombre)"
+              title="Eliminar categoría"
+            >
+              🗑️
+            </button>
+          </div>
+        } @empty {
+          <p class="empty-message">No hay categorías registradas</p>
+        }
+      </div>
+    </section>
+
+    <!-- SECCIÓN SUBCATEGORÍAS -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Subcategorías</h2>
+        <button class="btn-add" (click)="toggleSubCategoryForm()">
+          {{ showSubCategoryForm() ? '✕ Cancelar' : '+ Nueva Subcategoría' }}
+        </button>
+      </div>
+
+      <!-- FORMULARIO CREAR SUBCATEGORÍA -->
+      @if (showSubCategoryForm()) {
+        <div class="form-card">
+          <select 
+            class="form-select"
+            [(ngModel)]="selectedCategoryId"
+          >
+            <option [ngValue]="0" disabled>Seleccionar categoría</option>
+            @for (category of categories(); track category.id) {
+              <option [ngValue]="category.id">
+                {{ formatCategoryName(category.nombre) }}
+              </option>
+            }
+          </select>
+
+          <input 
+            type="text" 
+            class="form-input"
+            placeholder="Nombre de la subcategoría (ej: Basura En Vía Pública)"
+            [(ngModel)]="newSubCategoryName"
+            (keyup.enter)="handleCreateSubCategory()"
+          />
+
+          <button class="btn-create" (click)="handleCreateSubCategory()">
+            Crear Subcategoría
+          </button>
+        </div>
+      }
+      
+      <div class="items-list">
+        @for (sub of subCategories(); track sub.id) {
+          <div class="item-card">
+            <div class="item-info">
+              <span class="item-name">{{ formatCategoryName(sub.nombre) }}</span>
+              <span class="item-parent">{{ formatCategoryName(sub.tipo_reporte.nombre) }}</span>
+            </div>
+            <button 
+              class="btn-delete-small" 
+              (click)="handleDeleteSubCategory(sub.id, sub.nombre)"
+              title="Eliminar subcategoría"
+            >
+              🗑️
+            </button>
+          </div>
+        } @empty {
+          <p class="empty-message">No hay subcategorías registradas</p>
+        }
+      </div>
+    </section> <!-- 👈 ESTE FALTABA -->
+
+  </div>
+</div>

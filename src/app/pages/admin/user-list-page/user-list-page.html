@@ -1,0 +1,32 @@
+<div class="users-page">
+  <div class="container">
+    
+    <h1 class="page-title">Gestión de Usuarios</h1>
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Usuarios Registrados</h2>
+        <span class="count-badge">{{ users().length }} usuarios</span>
+      </div>
+
+      <div class="users-grid">
+        @for (user of users(); track user.id) {
+          <div class="user-card" (click)="viewUser(user.id)">
+            <div class="user-avatar">
+              {{ user.nombre.charAt(0).toUpperCase() }}{{ user.apellido.charAt(0).toUpperCase() }}
+            </div>
+            <div class="user-info">
+              <h3 class="user-name">{{ user.nombre }} {{ user.apellido }}</h3>
+              <p class="user-username">@{{ user.username }}</p>
+              <p class="user-email">{{ user.email }}</p>
+            </div>
+            <div class="user-arrow">→</div>
+          </div>
+        } @empty {
+          <p class="empty-message">No hay usuarios registrados</p>
+        }
+      </div>
+    </section>
+
+  </div>
+</div>

@@ -1,0 +1,253 @@
+/* =============== PÁGINA =============== */
+.form-page {
+  padding-block: 3rem;
+  min-height: calc(100vh - 70px);
+}
+
+.back-btn {
+  background: white;
+  border: 2px solid #e5e7eb;
+  color: var(--color-text);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 1.5rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.back-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateX(-2px);
+}
+
+/* =============== CONTENEDOR =============== */
+.form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+}
+
+/* =============== HEADER =============== */
+.form-header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #1d4ed8 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.form-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.form-header p {
+  margin: 0;
+  opacity: 0.95;
+  font-size: 1rem;
+}
+
+/* =============== CONTENIDO =============== */
+.form-content {
+  padding: 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* =============== FORM GROUP =============== */
+.form-group {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: var(--color-text-strong);
+  font-size: 0.95rem;
+}
+
+/* =============== INPUTS =============== */
+.form-input {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s;
+  background: white;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-input:disabled {
+  background: var(--color-bg-soft);
+  cursor: not-allowed;
+  color: var(--color-muted);
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 120px;
+}
+
+select.form-input {
+  cursor: pointer;
+}
+
+
+
+/* =============== ESTADOS DE INPUT =============== */
+.input-error {
+  border-color: #dc2626;
+}
+
+.input-error:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.input-success {
+  border-color: #16a34a;
+}
+
+.input-success:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+/* =============== ERROR TEXT =============== */
+.error-text {
+  font-size: 0.85rem;
+  color: #dc2626;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+/* =============== HINTS =============== */
+.input-hint {
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.input-hint.error {
+  color: #dc2626;
+}
+
+.input-hint.success {
+  color: #16a34a;
+}
+
+.input-hint.validating {
+  color: var(--color-muted);
+}
+
+/* =============== CONTADOR DE CARACTERES =============== */
+.char-count {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  text-align: right;
+}
+
+.char-count-min {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+/* =============== ERROR MESSAGE =============== */
+.error-message {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+/* =============== BOTONES =============== */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  flex: 1;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--color-text);
+  border: 2px solid var(--color-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =============== RESPONSIVE =============== */
+@media (max-width: 768px) {
+  .form-page {
+    padding-block: 1.5rem;
+  }
+
+  .form-header {
+    padding: 1.5rem;
+  }
+
+  .form-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .form-content {
+    padding: 1.5rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+}

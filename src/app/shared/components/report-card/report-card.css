@@ -1,0 +1,73 @@
+/* =============== TARJETA =============== */
+.card {
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  padding: 1rem 1.25rem;
+  display: grid;
+  gap: .9rem;
+  transition: .3s ease;
+  cursor: pointer;
+}
+.card:hover { 
+  transform: translateY(-3px); 
+  box-shadow: var(--shadow-2); 
+}
+
+/* =============== PLACEHOLDER IMG =============== */
+.thumb {                                                /*thumb significa "una miniatura" de algo mas grande*/
+  height: 120px;
+  border-radius: var(--radius-md);
+  background: #f0f3fc;
+}
+
+/* =============== ENCABEZADO =============== */
+.card-header {
+  display: flex;
+  align-items: flex-start;      /* badge arriba alineado */
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* bloque izquierda: categoría (arriba) + subcategoría (abajo) */
+.title-group {
+  display: flex;
+  flex-direction: column;       /* fuerza subtipo SIEMPRE abajo */
+  gap: .15rem;
+  min-width: 0;                 /* evita saltos raros por textos largos */
+}
+.category {
+  font-weight: 500;
+  color: var(--color-text-strong);
+  font-size: 1rem;
+}
+.subcategory {
+  color: var(--color-muted);
+  font-size: .9rem;
+}
+
+/* =============== BADGE DE ESTADO =============== */
+.badge {
+  font-size: .8rem;
+  padding: .25rem .75rem;
+}
+
+
+/* =============== DESCRIPCIÓN =============== */
+.desc { 
+  color: var(--color-text); 
+  line-height: 1.45; 
+  font-size: .95rem; 
+  overflow: hidden;                         /*estas dos aseguran que el texto truncado no se desborde*/
+  text-overflow: ellipsis;
+}
+
+/* =============== FOOTER =============== */
+.card-footer {
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  color: var(--color-muted); 
+  font-size: .9rem;
+}
+

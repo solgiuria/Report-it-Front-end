@@ -10,4 +10,10 @@ export interface User {
 }
 
 
-// Luego veremos si conviene ocultar password en el back para seguridad (recomendadísimo), pero por ahora lo usamos como viene.
+export interface ChangePasswordRequest {
+  contrasenaVieja: string;
+  contrasenaNueva: string;
+}
+
+
+// Luego ver si conviene ocultar password en el back para seguridad (recomendadísimo), pero por ahora lo usamos como viene.

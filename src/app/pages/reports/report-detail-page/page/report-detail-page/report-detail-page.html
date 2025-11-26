@@ -1,0 +1,118 @@
+<div class="detail-page">
+  
+  @if (reporte()) {
+    <div class="container">
+      <!-- BOTÓN VOLVER -->
+      <button class="back-btn" (click)="goBack()">
+        ← Volver
+      </button>
+
+      <!-- CONTENIDO PRINCIPAL -->
+      <div class="detail-content">
+        
+        <!-- IMAGEN PLACEHOLDER -->
+        <div class="image-section">
+          <div class="image-placeholder"></div>
+        </div>
+
+        <!-- INFO DEL REPORTE -->
+        <div class="info-section">
+          
+          <!-- HEADER: Categoría + Estado -->
+          <div class="detail-header">
+            <div class="categories">
+              <h2 class="category">{{ formatCategoryName(reporte()?.subtipo?.tipo_reporte?.nombre || '') }}</h2>
+              <p class="subcategory">{{ formatCategoryName(reporte()?.subtipo?.nombre || '') }}</p>
+            </div>
+            
+            <!-- CONTENEDOR DE ESTADO (badge + botón solo para admin) -->
+            <div class="status-container">
+              <span [class]="getStatusClass()">
+                {{ formatStatusName(reporte()?.estado || '') }}
+              </span>
+              
+              @if (isAdmin()) {
+                <button class="btn-change-status" (click)="toggleStatusSelector()" title="Cambiar estado">
+                  ✏️
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- SELECTOR DE ESTADO (solo admin) -->
+          @if (isAdmin() && showStatusSelector()) {
+            <div class="status-selector">
+              <h4>Cambiar estado del reporte</h4>
+              <div class="status-options">
+                @for (status of availableStatuses; track status) {
+                  <label class="status-option">
+                    <input 
+                      type="radio" 
+                      name="status" 
+                      [value]="status"
+                      [(ngModel)]="selectedStatus"
+                    />
+                    <span class="status-label">{{ formatStatusName(status) }}</span>
+                  </label>
+                }
+              </div>
+              <div class="status-actions">
+                <button class="btn-confirm" (click)="handleStatusChange()">
+                  Confirmar cambio
+                </button>
+                <button class="btn-cancel" (click)="showStatusSelector.set(false)">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          }
+
+          <!-- DESCRIPCIÓN COMPLETA -->
+          <div class="description-section">
+            <h3>Descripción</h3>
+            <p class="description">{{ reporte()?.descripcion }}</p>
+          </div>
+
+          <!-- UBICACIÓN -->
+          <div class="location-section">
+            <h3>📍 Ubicación</h3>
+            <p class="location">{{ reporte()?.ubicacion }}</p>
+            <p class="location-note">Mar del Plata, Buenos Aires</p>
+          </div>
+
+          <!-- INFO ADICIONAL (fecha y usuario EN UNA LÍNEA) -->
+<!-- INFO ADICIONAL (fecha y usuario EN UNA LÍNEA) -->
+<!-- INFO ADICIONAL (fecha y usuario EN UNA LÍNEA) -->
+          <div class="metadata">
+            <div class="metadata-row">
+              <span class="label">Reportado el:</span>
+              <span class="value">{{ reporte()?.fecha_hora | date:'fullDate' }}</span>
+            </div>
+            
+            <div class="metadata-row">
+              <span class="label">Por:</span>
+              <span class="value">@{{ reporte()?.usuario?.username }}</span>
+            </div>
+          </div>
+
+          <!--BOTONES DE ACCIÓN (solo si es del usuario) -->
+          @if (isMine()) {
+            <div class="action-buttons">
+              <button class="btn-edit" (click)="handleEdit()">
+                Editar Reporte
+              </button>
+              <button class="btn-delete" (click)="handleDelete()">
+                Eliminar Reporte
+              </button>
+            </div>
+          }
+
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="container loading-state">
+      <p>Cargando reporte...</p>
+    </div>
+  }
+</div>

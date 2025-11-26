@@ -1,8 +1,9 @@
-import { SubtipoReporte } from "./categories";
+import { reportSubCategory } from "./categories";
 import { User } from "./user";
 
 export type ReportStatus = 'PENDIENTE' | 'EN_PROCESO' | 'FINALIZADO';
 export type statusFilter = 'TODOS' | ReportStatus;
+
 export interface ReportForm {
   idsubtipo_Reporte: number;
   descripcion: string;
@@ -17,7 +18,7 @@ export interface Reporte {
   ubicacion: string;
   fecha_hora: string;
   estado: string;
-  subtipo: SubtipoReporte;
+  subtipo: reportSubCategory;
   usuario: User;
 }
 

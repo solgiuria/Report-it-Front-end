@@ -1,0 +1,69 @@
+<section class="my-reports container">
+  <h1 class="section-title">Mis Reportes</h1>
+  <p class="subtitle">Aquí podés ver y gestionar todos tus reportes</p>
+
+  <!-- FILTROS DE ESTADO -->
+  <div class="filter-section">
+    <h3>Filtrar por estado:</h3>
+    <div class="filter-buttons">
+      <button 
+        class="filter-btn" 
+        [class.active]="selectedStatus() === 'TODOS'"
+        (click)="setStatus('TODOS')">
+        Todos
+      </button>
+      <button 
+        class="filter-btn"
+        [class.active]="selectedStatus() === 'PENDIENTE'"
+        (click)="setStatus('PENDIENTE')">
+        Pendiente
+      </button>
+      <button 
+        class="filter-btn"
+        [class.active]="selectedStatus() === 'EN_PROCESO'"
+        (click)="setStatus('EN_PROCESO')">
+        En proceso
+      </button>
+      <button 
+        class="filter-btn"
+        [class.active]="selectedStatus() === 'FINALIZADO'"
+        (click)="setStatus('FINALIZADO')">
+        Finalizado
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTADOR DE RESULTADOS -->
+  <p class="results-count">
+    {{ myFilteredReports().length }} reporte(s) 
+    @if (selectedStatus() !== 'TODOS') {
+      <span class="status-filter">
+        · {{ selectedStatus().replace('_', ' ') }}
+      </span>
+    }
+  </p>
+
+  <!-- TARJETAS DE REPORTES -->
+  <div class="cards">
+    @for (reporte of myFilteredReports(); track reporte.id) {
+      <app-report-card [reporte]="reporte"></app-report-card>
+    } @empty {
+      <div class="empty-state">
+        <span class="empty-icon">📝</span>
+        <h3>No tenés reportes</h3>
+        <p>
+          @if (selectedStatus() === 'TODOS') {
+            Aún no has creado ningún reporte. ¡Creá tu primer reporte ahora!
+          } @else {
+            No tenés reportes con estado "{{ selectedStatus().replace('_', ' ') }}"
+          }
+        </p>
+        @if (selectedStatus() === 'TODOS') {
+          <a href="/app/reports/new" class="btn-primary">
+            + Crear Reporte
+          </a>
+        }
+      </div>
+    }
+  </div>
+</section>

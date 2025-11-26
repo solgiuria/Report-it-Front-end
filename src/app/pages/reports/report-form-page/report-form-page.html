@@ -1,0 +1,127 @@
+<section class="form-page container">
+  <div class="form-container">
+    <div class="form-header">
+      <h1>{{ id ? 'Editar Reporte' : 'Reportar un Problema' }}</h1>
+      <p>
+        @if (id) {
+          Modificá los datos de tu reporte
+        } @else {
+          Ayudanos a mejorar la ciudad reportando problemas en tu barrio
+        }
+      </p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()" class="form-content">
+      
+      <div class="form-group">
+        <label for="tipo">Categoría *</label>
+        <select id="tipo" formControlName="tipo_id" class="form-input" (change)="tipoChange($any($event.target).value)">
+          <option [value]="null">Seleccioná una categoría</option>
+          @for (tipo of categorias(); track tipo.id) {
+            <option [value]="tipo.id">{{ formatCategoryName(tipo.nombre) }}</option>
+          }
+        </select>
+        @if (tipoId.hasError('required') && (tipoId.dirty || tipoId.touched)) {
+          <span class="error-text">La categoría es obligatoria</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="subtipo">Subcategoría *</label>
+        <select 
+          id="subtipo"
+          formControlName="subtipo_id"
+          class="form-input"
+          [disabled]="!tipoId.value"
+        >
+          <option [ngValue]="null">
+            @if (!tipoId.value) {
+              Primero seleccioná una categoría
+            } @else {
+              Seleccioná una subcategoría
+            }
+          </option>
+          @for (subtipo of subcategoriasDisponibles(); track subtipo.id) {
+            <option [ngValue]="subtipo.id">{{ formatCategoryName(subtipo.nombre) }}</option>
+          }
+        </select>
+        @if (subtipoId.hasError('required') && (subtipoId.dirty || subtipoId.touched)) {
+          <span class="error-text">La subcategoría es obligatoria</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="ubicacion">Ubicación *</label>
+        <input 
+          id="ubicacion"
+          type="text"
+          formControlName="ubicacion"
+          class="form-input"
+          placeholder="Ej: Av. Colón 1234"
+        />
+        @if (ubicacion.hasError('required') && (ubicacion.dirty || ubicacion.touched)) {
+          <span class="error-text">La ubicación es obligatoria</span>
+        }
+        @if (ubicacion.hasError('minlength') && (ubicacion.dirty || ubicacion.touched)) {
+          <span class="error-text">La ubicación debe tener al menos 5 caracteres</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="fechaHora">Fecha y hora del incidente *</label>
+        <input 
+          id="fechaHora"
+          type="datetime-local"
+          formControlName="fechaHora"
+          class="form-input"
+          [max]="getTodayDateTime()"
+        />
+        @if (fechaHora.hasError('required') && (fechaHora.dirty || fechaHora.touched)) {
+          <span class="error-text">La fecha y hora son obligatorias</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción *</label>
+        <textarea 
+          id="descripcion"
+          formControlName="descripcion"
+          class="form-input"
+          rows="5"
+          placeholder="Describí el problema con el mayor detalle posible (mínimo 10 caracteres)"
+        ></textarea>
+        <span class="char-count">
+          {{ descripcion.value.length }} caracteres
+          @if (descripcion.value.length < 10) {
+            <span class="char-count-min">(mínimo 10)</span>
+          }
+        </span>
+        @if (descripcion.hasError('required') && (descripcion.dirty || descripcion.touched)) {
+          <span class="error-text">La descripción es obligatoria</span>
+        }
+        @if (descripcion.hasError('minlength') && (descripcion.dirty || descripcion.touched)) {
+          <span class="error-text">La descripción debe tener al menos 10 caracteres</span>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button 
+          type="submit"
+          class="btn-primary"
+          [disabled]="form.invalid"
+        >
+          {{ id ? 'Actualizar Reporte' : 'Enviar Reporte' }}
+        </button>
+
+        <button 
+          type="button"
+          class="btn-secondary"
+          (click)="cancel()"
+        >
+          Cancelar
+        </button>
+      </div>
+
+    </form>
+  </div>
+</section>

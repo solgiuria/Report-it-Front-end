@@ -1,0 +1,115 @@
+<!-- profile.page.html -->
+<div class="profile-page">
+  <div class="container">
+    <h1>Mi Perfil</h1>
+
+    @if (userData(); as user) {
+      <!-- INFORMACIÓN DEL USUARIO -->
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="avatar">
+            {{ user.nombre.charAt(0) }}{{ user.apellido.charAt(0) }}
+          </div>
+          <div class="user-info">
+            <h2>{{ user.nombre }} {{ user.apellido }}</h2>
+            <p class="username">@{{ user.username }}</p>
+          </div>
+        </div>
+
+        <div class="profile-details">
+          <div class="detail-item">
+            <span class="label">Email:</span>
+            <span class="value">{{ user.email }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">DNI:</span>
+            <span class="value">{{ user.dni }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Edad:</span>
+            <span class="value">{{ user.edad }} años</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAMBIAR CONTRASEÑA -->
+      <div class="password-section">
+        <button 
+          class="btn-secondary" 
+          (click)="togglePasswordForm()">
+          {{ showPasswordForm() ? ' Cancelar' : ' Cambiar Contraseña' }}
+        </button>
+
+        @if (showPasswordForm()) {
+          <form [formGroup]="passwordForm" (ngSubmit)="handlePasswordChange()" class="password-form">
+            
+            <div class="form-group">
+              <label for="contrasenaVieja">Contraseña Actual *</label>
+              <input 
+                type="password" 
+                id="contrasenaVieja"
+                formControlName="contrasenaVieja"
+                class="form-input"
+              />
+              @if (contrasenaVieja.hasError('required') && (contrasenaVieja.dirty || contrasenaVieja.touched)) {
+                <span class="error-text">La contraseña actual es obligatoria</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="contrasenaNueva">Contraseña Nueva *</label>
+              <input 
+                type="password" 
+                id="contrasenaNueva"
+                formControlName="contrasenaNueva"
+                class="form-input"
+              />
+              @if (contrasenaNueva.hasError('required') && (contrasenaNueva.dirty || contrasenaNueva.touched)) {
+                <span class="error-text">La contraseña nueva es obligatoria</span>
+              }
+              @if (contrasenaNueva.hasError('minlength') && (contrasenaNueva.dirty || contrasenaNueva.touched)) {
+                <span class="error-text">Mínimo 3 caracteres</span>
+              }
+              @if (contrasenaNueva.hasError('maxlength') && (contrasenaNueva.dirty || contrasenaNueva.touched)) {
+                <span class="error-text">Máximo 20 caracteres</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="confirmarContrasena">Confirmar Contraseña Nueva *</label>
+              <input 
+                type="password" 
+                id="confirmarContrasena"
+                formControlName="confirmarContrasena"
+                class="form-input"
+              />
+              @if (confirmarContrasena.hasError('required') && (confirmarContrasena.dirty || confirmarContrasena.touched)) {
+                <span class="error-text">Debes confirmar la contraseña</span>
+              }
+              @if (!passwordsMatch() && confirmarContrasena.dirty) {
+                <span class="error-text">Las contraseñas no coinciden</span>
+              }
+            </div>
+
+            <button 
+              type="submit" 
+              class="btn-primary"
+              [disabled]="passwordForm.invalid || !passwordsMatch()">
+              Cambiar Contraseña
+            </button>
+          </form>
+        }
+      </div>
+
+      <!-- CERRAR SESIÓN -->
+      <div class="logout-section">
+        <button class="btn-logout" (click)="logout()">
+          🚪 Cerrar Sesión
+        </button>
+      </div>
+
+    } @else {
+      <p>Cargando perfil...</p>
+    }
+  </div>
+</div>
