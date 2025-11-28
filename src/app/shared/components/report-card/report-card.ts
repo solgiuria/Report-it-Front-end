@@ -46,6 +46,27 @@ export class ReportCard {
       .join(' ');
   }
 
+  imageUrl() {
+  const report = this.reporte();          
+  const img = report?.imagenUrl;
+
+  if (!img) return null;
+
+  // Si quiero guardar la URL completa, esto lo soporta igual
+  if (img.startsWith('http')) {
+    return img;
+  }
+
+  const backend = 'http://localhost:8080';
+
+  // Si viene como "/uploads/reportes/archivo.jpg"
+  if (img.startsWith('/')) {
+    return backend + img;
+  }
+
+  // Si viene como "uploads/reportes/archivo.jpg"
+  return `${backend}/${img}`;
+}
 
 
 }

@@ -21,9 +21,12 @@ export class ReportFormPage {
   private formBuilder = inject(FormBuilder);
   private route = inject(ActivatedRoute);
 
+  readonly selectedImage = signal<File | null>(null);
+  readonly imagePreview = signal<string | null>(null);
+
   readonly id = this.route.snapshot.paramMap.get('id');
   readonly reportLectura = toSignal(this.reportService.getById(Number(this.id)));
-  readonly reportToEdit = signal(this.reportLectura());
+  //readonly reportToEdit = signal(this.reportLectura());
   
   readonly categorias = toSignal(this.typeService.getAll(), { initialValue: [] });
   readonly todasLasSubcategorias = toSignal(this.subCategoryService.getAll(), { initialValue: [] });
@@ -65,7 +68,7 @@ export class ReportFormPage {
     });
 
     effect(() => {
-      const report = this.reportToEdit();
+      const report = this.reportLectura();
       if (report) {
         this.form.patchValue({
           tipo_id: report.subtipo.tipo_reporte.id,
@@ -84,19 +87,21 @@ getTodayDateTime(): string {
   return new Date().toISOString().slice(0, 16);
 }
 
-  handleSubmit() {
-    if (this.form.invalid) {
-      alert('Por favor completá todos los campos correctamente');
-      return;
-    }
+handleSubmit() {
+  if (this.form.invalid) {
+    alert('Por favor completá todos los campos correctamente');
+    return;
+  }
 
-    const mensaje = this.id 
-      ? '¿Confirmas que querés actualizar este reporte?' 
-      : '¿Confirmas que querés enviar este reporte?';
+  const mensaje = this.id 
+    ? '¿Confirmas que querés actualizar este reporte?' 
+    : '¿Confirmas que querés enviar este reporte?';
 
-    if (confirm(mensaje)) {
-      const formValue = this.form.getRawValue();
+  if (confirm(mensaje)) {
+    const formValue = this.form.getRawValue();
 
+    if (this.id) {
+      // EDITAR (sin imagen x ahora)
       const reportForm = {
         idsubtipo_Reporte: formValue.subtipo_id!,
         descripcion: formValue.descripcion,
@@ -104,31 +109,44 @@ getTodayDateTime(): string {
         fechaHora: formValue.fechaHora + ':00',
       };
 
-      if (this.id) {
-        this.reportService.update(Number(this.id), reportForm).subscribe({
-          next: () => {
-            alert('Reporte actualizado exitosamente');
-            this.router.navigate(['/app/reports', this.id]);
-          },
-          error: (err) => {
-            console.error('Error:', err);
-            alert(err.error || 'Error al actualizar');
-          }
-        });
-      } else {
-        this.reportService.create(reportForm).subscribe({
-          next: () => {
-            alert('Reporte creado exitosamente');
-            this.router.navigate(['/app/reports/my']);
-          },
-          error: (err) => {
-            console.error('Error:', err);
-            alert(err.error || 'Error al crear');
-          }
-        });
+      this.reportService.update(Number(this.id), reportForm).subscribe({
+        next: () => {
+          alert('Reporte actualizado exitosamente');
+          this.router.navigate(['/app/reports', this.id]);
+        },
+        error: (err) => {
+          console.error('Error:', err);
+          alert(err.error || 'Error al actualizar');
+        }
+      });
+    } else {
+      // CREAR (con imagen)
+      const formData = new FormData();
+      formData.append('idsubtipo_Reporte', formValue.subtipo_id!.toString());
+      formData.append('descripcion', formValue.descripcion);
+      formData.append('ubicacion', formValue.ubicacion);
+      formData.append('fechaHora', formValue.fechaHora + ':00');
+
+      // Agregar imagen si existe
+      const imagen = this.selectedImage();
+      if (imagen) {
+        formData.append('imagen', imagen);
       }
+
+
+      this.reportService.createWithImage(formData).subscribe({
+        next: () => {
+          alert('Reporte creado exitosamente');
+          this.router.navigate(['/app/reports/my']);
+        },
+        error: (err) => {
+          console.error('Error:', err);
+          alert(err.error || 'Error al crear');
+        }
+      });
     }
   }
+}
 
   formatCategoryName(name: string): string {
     return name.toLowerCase().split('_')
@@ -145,4 +163,38 @@ getTodayDateTime(): string {
       }
     }
   }
+
+  handleImageSelect(event: Event) {
+  const input = event.target as HTMLInputElement;
+  const file = input.files?.[0];
+
+    if (file) {
+      // Validar que sea una imagen
+      if (!file.type.startsWith('image/')) {
+        alert('Por favor seleccioná un archivo de imagen válido');
+        return;
+      }
+
+      // Validar tamaño (máximo 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('La imagen no puede superar los 5MB');
+        return;
+      }
+
+      this.selectedImage.set(file);
+
+      // Crear preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imagePreview.set(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  clearImage() {
+    this.selectedImage.set(null);
+    this.imagePreview.set(null);
+  }
+
 }

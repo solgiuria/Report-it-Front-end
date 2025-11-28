@@ -63,11 +63,6 @@ export class AuthService {
   //Me sirve p verificar que un reporte es mio
   getUsernameFromToken(): string | null {
     const decoded = this.getDecodedToken();
-
-  //DEBUG 
-  console.log('Decoded en getUsernameFromToken:', decoded);
-  console.log('decoded?.sub:', decoded?.sub);
-
     return decoded?.sub || null;
   }
 

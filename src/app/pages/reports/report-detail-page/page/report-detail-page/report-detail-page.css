@@ -64,15 +64,31 @@
 .image-section {
   width: 100%;
   background: #f0f3fc;
+  height: 100%; 
 }
 
 .image-placeholder {
   width: 100%;
-  height: 400px;
   background: linear-gradient(135deg, #e0e7ff 0%, #f0f3fc 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+
+/* Cuando HAY una imagen cargada */
+.detail-image-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.detail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* rellena el rectángulo sin deformar, mantiene proporcion */
+  object-position:center; /*centra la img*/
+  display: block;
 }
 
 /* =============== SECCIÓN DE INFO =============== */
@@ -372,6 +388,7 @@
     height: 250px;
   }
 }
+
 
 /* =============== BOTONES DE ACCIÓN =============== */
 .action-buttons {

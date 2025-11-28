@@ -104,6 +104,36 @@
         }
       </div>
 
+
+          <!-- IMAGEN (solo al crear) -->
+      @if (!id) {
+        <div class="form-group">
+          <label for="imagen">Imagen (opcional)</label>
+          <input 
+            type="file"
+            id="imagen"
+            accept="image/*"
+            (change)="handleImageSelect($event)"
+            class="form-input-file"
+          />
+          <p class="help-text">Formatos aceptados: JPG, PNG, GIF (máximo 5MB)</p>
+
+          <!-- Preview de la imagen -->
+          @if (imagePreview()) {
+            <div class="image-preview-container">
+              <img [src]="imagePreview()" alt="Preview" class="image-preview" />
+              <button 
+                type="button" 
+                class="btn-remove-image"
+                (click)="clearImage()"
+              >
+                ✕ Quitar imagen
+              </button>
+            </div>
+          }
+        </div>
+      }
+
       <div class="form-actions">
         <button 
           type="submit"

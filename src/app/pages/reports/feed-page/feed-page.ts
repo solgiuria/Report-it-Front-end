@@ -78,17 +78,17 @@ export class ReportsFeedPage {
     const estado = this.selectedStatus();
     const base = this.lectureReports();
 
-    // 1️⃣ Filtrar por CATEGORÍA primero
+    // 1.Filtrar por CATEGORÍA primero
     let result = (categoria === 'TODAS')
       ? base
       : base.filter(r => r.subtipo?.tipo_reporte?.nombre === categoria);
 
-    // 2️⃣ Filtrar por SUBCATEGORÍA
+    // 2️.Filtrar por SUBCATEGORÍA
     result = (subcategoria === 'TODAS')
       ? result
       : result.filter(r => r.subtipo?.nombre === subcategoria);
 
-    // 3️⃣ Filtrar por ESTADO al final
+    // 3️.Filtrar por ESTADO al final
     result = (estado === 'TODOS')
       ? result
       : result.filter(r => r.estado === estado);

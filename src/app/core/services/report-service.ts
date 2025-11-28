@@ -32,6 +32,13 @@ export class ReportService {
     });
   }
 
+    // Crear reporte con imagen (FormData)
+  createWithImage(formData: FormData) {
+    return this.httpClient.post<string>(`${this.apiUrl}/reportar`, formData, {
+      responseType: 'text' as 'json'
+    });
+  }
+
   // Actualizar reporte (para editar)
   update(id: number, reporte: ReportForm){
     return this.httpClient.put<string>(`${this.apiUrl}/${id}`, reporte, {
@@ -50,8 +57,10 @@ export class ReportService {
 
   // Eliminar reporte
   delete(id: number){
-    return this.httpClient.delete<string>(`${this.apiUrl}/${id}`, {
+    return this.httpClient.delete<string>(`${this.apiUrl}/eliminar/${id}`, {
       responseType: 'text' as 'json'
     });
   }
+
+
 }

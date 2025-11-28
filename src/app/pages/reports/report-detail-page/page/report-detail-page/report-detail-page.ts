@@ -43,6 +43,7 @@ export class ReportDetailPage {
   // Estados disponibles
   readonly availableStatuses: ReportStatus[] = ['PENDIENTE', 'EN_PROCESO', 'FINALIZADO'];
 
+
   constructor() {
     // Verificar si es admin
     this.isAdmin.set(this.authService.isAdmin());
@@ -148,4 +149,31 @@ export class ReportDetailPage {
   formatStatusName(status: string): string {
     return status.replace('_', ' ');
   }
+
+  imageUrl() {
+    const report = this.reporte();
+    const img = report?.imagenUrl;
+
+    if (!img) return null;
+
+    // Si ya viene completa (por si en un futuro lo cambi0)
+    if (img.startsWith('http')) {
+      return img;
+    }
+
+    // BASE DEL BACKEND (no el 4200)
+    const backend = 'http://localhost:8080';
+
+    // Si viene con / adelante  "/uploads/reportes/..."
+    if (img.startsWith('/')) {
+      return backend + img;
+    }
+
+    // Si viene sin slash  "uploads/reportes/..."
+    return `${backend}/${img}`;
+  }
+
+
+
+
 }

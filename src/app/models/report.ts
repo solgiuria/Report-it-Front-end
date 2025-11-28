@@ -20,5 +20,6 @@ export interface Reporte {
   estado: string;
   subtipo: reportSubCategory;
   usuario: User;
+  imagenUrl?: string | null;  
 }
 

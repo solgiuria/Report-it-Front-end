@@ -33,6 +33,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   console.log('Token agregado al header Authorization');
 
-  // 7️⃣ Enviamos la request ya modificada (con el token incluido)
+  //Enviamos la request ya modificada (con el token incluido)
   return next(authReq);
 };

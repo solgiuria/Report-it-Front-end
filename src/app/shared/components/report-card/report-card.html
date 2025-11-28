@@ -1,7 +1,15 @@
 <article class="card" aria-label="Reporte ciudadano" (click)="goToDetail()" role="button" tabindex="0" (keydown.enter)="goToDetail()">
   
   <!-- Imagen / placeholder -->
-  <div class="thumb" aria-hidden="true"></div>
+  <div class="thumb" aria-hidden="true">
+      @if (imageUrl()) {
+        <img 
+          [src]="imageUrl()!" 
+          alt="Imagen del reporte"
+          class="thumb__image"
+        />
+      }
+  </div>
 
   <!-- Encabezado: título + subcategoría, badge (como una pequena etiqueta, nro, icono) a la derecha -->
   <div class="card-header">

@@ -11,9 +11,21 @@
       <div class="detail-content">
         
         <!-- IMAGEN PLACEHOLDER -->
-        <div class="image-section">
+      <div class="image-section">
+        @if (imageUrl()) {
+          <div class="detail-image-wrapper">
+            <img 
+              [src]="imageUrl()!" 
+              alt="Imagen del reporte"
+              class="detail-image"
+            />
+          </div>
+        } @else {
           <div class="image-placeholder"></div>
-        </div>
+        }
+      </div>
+
+
 
         <!-- INFO DEL REPORTE -->
         <div class="info-section">
@@ -81,8 +93,6 @@
           </div>
 
           <!-- INFO ADICIONAL (fecha y usuario EN UNA LÍNEA) -->
-<!-- INFO ADICIONAL (fecha y usuario EN UNA LÍNEA) -->
-<!-- INFO ADICIONAL (fecha y usuario EN UNA LÍNEA) -->
           <div class="metadata">
             <div class="metadata-row">
               <span class="label">Reportado el:</span>

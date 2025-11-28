@@ -109,12 +109,6 @@ export class CategoryManagementPage {
   handleCreateSubCategory() {
     const nombre = this.newSubCategoryName().trim();
     const tipoId = Number(this.selectedCategoryId()); 
-
-
-    // 👇 AGREGAR ESTOS CONSOLE.LOG
-  console.log('📋 Nombre:', nombre);
-  console.log('🔢 Tipo ID:', tipoId);
-  console.log('🔍 Tipo de tipoId:', typeof tipoId);
     
     if (!nombre) {
       alert('El nombre de la subcategoría no puede estar vacío');

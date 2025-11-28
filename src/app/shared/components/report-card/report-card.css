@@ -19,7 +19,17 @@
   height: 120px;
   border-radius: var(--radius-md);
   background: #f0f3fc;
+  overflow: hidden;            /* recorta la imagen dentro del borde redondeado */
 }
+
+.thumb__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;           /* rellena sin deformar */
+  object-position: center;     /* recorte centrado */
+  display: block;
+}
+
 
 /* =============== ENCABEZADO =============== */
 .card-header {

@@ -37,7 +37,4 @@ export class UserService {
     return this.httpClient.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-
-
-
 }
